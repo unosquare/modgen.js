@@ -8,5 +8,4 @@ Stack
 * React Query (https://tanstack.com/query/v3/)
 * Zustand (https://github.com/pmndrs/zustand)
 * Prompt Engineering (https://www.pinecone.io/learn/series/langchain/langchain-prompt-templates/)
-* LangChain (https://js.langchain.com/docs/get_started/introduction/)
-* Open AI API (https://openai.com/blog/openai-api)
+* Open AI API (https://www.npmjs.com/package/openai)
