@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 export default function Home() {
-  const {data, status} = useQuery('data', pruebaUno);
+  const {data, status} = useQuery('data', dataFetch);
 
   if(status === 'loading'){
     return <p>Loading...</p> 
@@ -12,12 +12,8 @@ export default function Home() {
   if(status === 'error'){
     return <p>Error</p>
   }
-
-  console.log(data);
   
   return (
-
-    /**Ejemplo de abajo con la fakestoreAPI */
     <ul>
       {
         data.map((element:any)=>(<li key={element.id}>{element.title}</li> ))
@@ -26,11 +22,8 @@ export default function Home() {
   )
 }
 
-async function pruebaUno(){
-  //prueba sencilla de react query, fakestore api es solo una api para comprobar el funcionamiento de reactQuery
+
+async function dataFetch(){
   const data = await fetch('https://fakestoreapi.com/products?limit=5');
-  // const data = await fetch(/*url de la API*/ );
-
-
   return data.json();
 }
