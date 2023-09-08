@@ -11,8 +11,7 @@ const openai = new OpenAI({
 
 export default function Home() {
   //Zudstand for the input of the user
-  const { userInputs} = userInputStore();
-  const { updateUserInput } = userInputStore();
+  const[userInputs, updateUserInput] = userInputStore((state) => [state.userInputs, state.updateUserInput]);
   const updateUserInputHere = (event:any)=> updateUserInput(event.target.value);
   
   //react query request, error handlers and fetch trigger
