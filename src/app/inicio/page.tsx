@@ -1,51 +1,60 @@
 'use client'
 import React, {useState} from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-//openai
+import { QueryClient, QueryClientProvider, useMutation, useQuery } from "react-query";
 import OpenAI from 'openai';
+import { userInputStore } from '@/store/inputStore';
 
-console.log(process.env);
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
-  dangerouslyAllowBrowser: true // defaults to process.env["OPENAI_API_KEY"]
+  dangerouslyAllowBrowser: true
 });
 
 export default function Home() {
-  //for textarea
-  const [userInput, setUserInput] = useState('');
-  const onChangeText = (event:any) =>setUserInput(event.target.value);
-    
+  //Zudstand for the input of the user
+  const { userInputs} = userInputStore();
+  const { updateUserInput } = userInputStore();
+  const updateUserInputHere = (event:any)=> updateUserInput(event.target.value);
+  
+  //react query request, error handlers and fetch trigger
+  const { data, 
+          isError, 
+          isLoading, 
+          mutateAsync } = useMutation(
+                                        () => gptQuery(userInputs)
+                                     );
+  
   //send request to gpt after button is pressed
-  const [enabled, setEnabled] = useState(false);
-  const sendRequest = ()=>gptQuery(userInput);
-
-  const { data, status } = useQuery('data', sendRequest, {
-    enabled: enabled
-  }); 
+  async function send(){
+    await mutateAsync();
+  }
 
   //check status of the request
-  if(status === 'loading'){
+  if(isLoading){
     return <p>Loading...</p> 
   }
 
-  if(status === 'error'){
+  if(isError){
     return <p>Error</p>
   }
   
-  // console.log(data);  
-// data.map((element:any)=>(<li key={element.index}>{element.message.content}</li> ))
   return(
     <>
-      <h1>Input something</h1>
-      <textarea value={userInput} onChange={onChangeText}/><br />
-      <button onClick={() => setEnabled(true)} type='button'>Send</button><br />
-      <h1>GPT Responses:</h1><br />
-      {
-        data?.forEach((element:any) => {
-          <p>{element}</p>
-        })
-      }
-      
+      <h1>ModGen.js</h1>
+      <div className='flex flex-row text-xl justify-center py-40'>
+        <div className='px-16'>
+          <h1>Input something</h1>
+          <textarea className="h-30 text-black h-40 w-50" 
+                    value={userInputs} 
+                    onChange={ updateUserInputHere }
+          /> <br />
+          <button onClick={send} type='button' className='hover:bg-red-800 py-2 px-2' >Send</button><br />
+        </div>
+
+        <div className='px-16'>
+          <h1 className='' >GPT Response:</h1><br />
+          <p >{data}</p>     
+        </div>   
+      </div>  
     </>
   )
 }
@@ -53,16 +62,10 @@ export default function Home() {
 async function gptQuery(input:string) {
   const chatCompletion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [{"role": "user", "content": input}],
+    messages: [{"role": "user", "content":input}],
   });
   console.log(chatCompletion.choices);
-  let resultados: Array<string> = [];
-  for (let i = 0; i < chatCompletion.choices.length; i++) {
-    const element = chatCompletion.choices[i].message.content;
-    resultados.push(element!);    
-  }
-  console.log(resultados);
   
-  return resultados;
+  return chatCompletion.choices[0].message.content;
 }
 
