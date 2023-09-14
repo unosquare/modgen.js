@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import { userInputsArr, userInputStore, cicleShotsTypes, ShotsTypes } from '@/store/inputStore';
+import { userInputsArr, userInputStore} from '@/store/inputStore';
 
 interface ModelParameters{
     value: string;
@@ -14,6 +14,7 @@ export function Model({value, onChange}:ModelParameters){
             <h1>Input something</h1>
             <textarea name="" 
                       id="input-model-alwaysActive" 
+                      value={value}
                       onChange={onChange}
                       className="text-black h-44 w-[40rem] rounded resize-none p-2" 
             >
@@ -40,27 +41,16 @@ export function Result({data, value, onChange}: ResultTypes){
                                                   state.userResults]);
     const [updateUserInputArr] = userInputsArr((state)=> [state.updateUserInputArr]);
 
-    const updateShots = ()=>{    
-        let values:ShotsTypes = {input: userInputs, result:userResults};    
-        updateUserInputArr(values);
+    const updateShots = ()=>{
+        updateUserInputArr({input: userInputs, result:userResults});
         updateUserInput("");
         updateUserResults("");
-    }
-    const inputRef:any = useRef(null);
-    const deleteText = ()=>{
-        if(inputRef.current != null){
-            inputRef.current.value = "";
-        }
-        if(document.getElementById('input-model-alwaysActive') != null){
-            (document.getElementById('input-model-alwaysActive') as HTMLInputElement).value = "";
-        }
     }
     const clickedAdd = ()=>{
         console.log(userInputs);
         
         if(userInputs.trim() != '' && userResults.trim() != ''){
             updateShots(); 
-            deleteText();
         }
     }
 
@@ -76,8 +66,9 @@ export function Result({data, value, onChange}: ResultTypes){
                 ></textarea>
             :                   
                 <textarea name="" 
-                        ref={inputRef}
+                        // ref={inputRef}
                         id="writable-TAResult"
+                        value={value}
                         onChange={onChange}               
                         className="text-black h-44 w-[40rem] resize-none rounded p-2" 
                 ></textarea>
