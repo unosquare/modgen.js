@@ -24,27 +24,21 @@ export interface ShotsTypes {
     result: string
 }
 
-export type cicleShotsTypes = Record<number, ShotsTypes>;
-
 interface ArrInterface{
-    examples: cicleShotsTypes;
+    examples: ShotsTypes[];
     updateUserInputArr: (input:ShotsTypes)=>void;
     deleteUserInputArr: ()=>void;
 }
 
 //store for array that stores user's input and results.
 //these are the examples that are fed to GPT. 
-let index:number = 0;
 export const userInputsArr = create<ArrInterface>((set)=>({
-    examples: {},
-    updateUserInputArr: (input:ShotsTypes)=> set((status:ArrInterface)=>{
-        status.examples[index] = {input: input.input, result: input.result};
-        index++;
-        return {examples: status.examples}
-    }),
+    examples: [],
+    updateUserInputArr: (input:ShotsTypes)=> set((status:ArrInterface)=>({
+        examples:[...status.examples, {input: input.input, result: input.result}]
+    })),
     deleteUserInputArr:() => set((status:any)=>{
-        status.examples = {}
-        index = 0;
+        status.examples = [];
         return status.examples;
     })    
 }))
