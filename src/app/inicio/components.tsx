@@ -46,9 +46,7 @@ export function Result({data, value, onChange}: ResultTypes){
         updateUserInput("");
         updateUserResults("");
     }
-    const clickedAdd = ()=>{
-        console.log(userInputs);
-        
+    const clickedAdd = ()=>{        
         if(userInputs.trim() != '' && userResults.trim() != ''){
             updateShots(); 
         }
@@ -66,7 +64,6 @@ export function Result({data, value, onChange}: ResultTypes){
                 ></textarea>
             :                   
                 <textarea name="" 
-                        // ref={inputRef}
                         id="writable-TAResult"
                         value={value}
                         onChange={onChange}               
