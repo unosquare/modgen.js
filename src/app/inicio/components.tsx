@@ -106,7 +106,7 @@ export function Examples({send}: ExampleTypes){
         <>
             <h1>Examples</h1>
             <div className="h-96 w-[25rem] bg-white  text-black rounded overflow-auto" >
-                <Shots></Shots>
+                <Shots/>
             </div>
             <div id="examples-btns" >
                 <button type="button" 
