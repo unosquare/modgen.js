@@ -50,17 +50,17 @@ export default function Home() {
 
         <div className='mr-7 bg-gray-400 px-5 py-3 rounded-lg bg-opacity-20 backdrop-blur-lg
                         hover:shadow-lg hover:shadow-blue-950' >
-          <Examples send={send}></Examples>
+          <Examples send={send}/>
         </div>
 
         <div className='flex flex-col px-5 py-3 bg-gray-400 rounded-lg bg-opacity-20 backdrop-blur-lg
                         hover:shadow-lg hover:shadow-blue-950 '>
           <div>
-            <Model value={userInputs} onChange={updateUserInputHere}></Model>
+            <Model value={userInputs} onChange={updateUserInputHere}/>
           </div>
 
           <div>
-            <Result data={data} value={userResults} onChange={updateUserResultsHere} ></Result>
+            <Result data={data} value={userResults} onChange={updateUserResultsHere}/ >
           </div>
         </div>       
 

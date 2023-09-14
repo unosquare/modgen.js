@@ -1,23 +1,21 @@
-import React from "react";
-import { userInputsArr } from '@/store/inputStore';
-import { userInputStore } from '@/store/inputStore';
+import React, {useRef} from "react";
+import { userInputsArr, userInputStore, cicleShotsTypes, ShotsTypes } from '@/store/inputStore';
 
-interface modelParameters{
-    value: string,
-    onChange: (event:any)=>void,
+interface ModelParameters{
+    value: string;
+    onChange: (event:any)=>void;
 }
 
 //model are the inputs from the user, these are part of the prompt
-export function Model({value, onChange}:modelParameters){
+export function Model({value, onChange}:ModelParameters){
 
     return(
         <>
             <h1>Input something</h1>
             <textarea name="" 
-                      id="" 
-                      value={value} 
+                      id="input-model-alwaysActive" 
                       onChange={onChange}
-                      className="text-black h-44 w-[40rem] rounded resize-none" 
+                      className="text-black h-44 w-[40rem] rounded resize-none p-2" 
             >
             </textarea> <br />
 
@@ -25,22 +23,45 @@ export function Model({value, onChange}:modelParameters){
     )
 }
 
-interface dataTypes{
-    data: string | undefined | null,
-    value: string,
-    onChange: (event:any)=>void,
+interface ResultTypes{
+    data: string | undefined | null;
+    value: string;
+    onChange: (event:any)=>void;
 }
 
 //results are GPT responses exemplified by the user
-export function Result({data, value, onChange}: dataTypes){
-    const {userInputs, userResults} = userInputStore();
-    const [updateUserInputArr, examples] = userInputsArr((state:any)=> [state.updateUserInputArr, state.examples]);
-    const num = examples.length;
+export function Result({data, value, onChange}: ResultTypes){
+    const[userInputs, 
+        updateUserInput, 
+        updateUserResults, 
+        userResults] = userInputStore((state) => [state.userInputs, 
+                                                  state.updateUserInput, 
+                                                  state.updateUserResults, 
+                                                  state.userResults]);
+    const [updateUserInputArr] = userInputsArr((state)=> [state.updateUserInputArr]);
 
     const updateShots = ()=>{    
-        let values = {"id":num,"input": userInputs, "results":userResults};
-    
+        let values:ShotsTypes = {input: userInputs, result:userResults};    
         updateUserInputArr(values);
+        updateUserInput("");
+        updateUserResults("");
+    }
+    const inputRef:any = useRef(null);
+    const deleteText = ()=>{
+        if(inputRef.current != null){
+            inputRef.current.value = "";
+        }
+        if(document.getElementById('input-model-alwaysActive') != null){
+            (document.getElementById('input-model-alwaysActive') as HTMLInputElement).value = "";
+        }
+    }
+    const clickedAdd = ()=>{
+        console.log(userInputs);
+        
+        if(userInputs.trim() != '' && userResults.trim() != ''){
+            updateShots(); 
+            deleteText();
+        }
     }
 
     return(
@@ -49,22 +70,22 @@ export function Result({data, value, onChange}: dataTypes){
             {
             typeof(data) == 'string' ?
                 <textarea name="" 
-                          id=""           
-                          value={data}        
-                          className="text-black h-44 w-[40rem] resize-none rounded" 
+                        id="non-writable-TAResult"           
+                        value={data}        
+                        className="text-black h-44 w-[40rem] resize-none rounded p-2" 
                 ></textarea>
-            :   
+            :                   
                 <textarea name="" 
-                          id=""        
-                          value={value} 
-                          onChange={onChange}               
-                          className="text-black h-44 w-[40rem] resize-none rounded" 
+                        ref={inputRef}
+                        id="writable-TAResult"
+                        onChange={onChange}               
+                        className="text-black h-44 w-[40rem] resize-none rounded p-2" 
                 ></textarea>
 
             } <br />
             <button type='button' 
                     className='hover:bg-slate-600 py-2 px-2 rounded border-slate-300'
-                    onClick={updateShots}
+                    onClick={clickedAdd}
             >
                 Add
             </button>
@@ -72,19 +93,19 @@ export function Result({data, value, onChange}: dataTypes){
     )
 }
 
-interface helpingInter{
-    send: ()=>void
+interface ExampleTypes{
+    send: ()=>void;
 }
 
 //examples are built with one user input and result
-export function Examples({send}: helpingInter){
+export function Examples({send}: ExampleTypes){
 
-    const deleteUserInputArr = userInputsArr((state:any)=> state.deleteUserInputArr);
+    const [deleteUserInputArr] = userInputsArr((state)=> [state.deleteUserInputArr]);
 
     return(        
         <>
             <h1>Examples</h1>
-            <div className="h-96 w-[25rem] bg-white  text-black rounded" >
+            <div className="h-96 w-[25rem] bg-white  text-black rounded overflow-auto" >
                 <Shots></Shots>
             </div>
             <div id="examples-btns" >
@@ -108,21 +129,29 @@ export function Examples({send}: helpingInter){
 //shots are a single example
 function Shots(){
     
-    const examples:object[] = userInputsArr((state:any)=> state.examples);
-    const cant:number = examples.length;
+    const [examples] = userInputsArr((state)=> [state.examples]);
+    const cant:number = Object.keys(examples).length;
 
     return(
             
-        cant > 0 ?
-        examples.map((element:any) =>(            
-            <React.Fragment key={element.id}>
-                <code >{element.input}, {element.results}</code>
-                <br />
-            </React.Fragment>
-        ))
-            
+        cant > 0 ?  
+            Object.entries(examples).map(([key, value]) => (
+                    <React.Fragment key={key}>
+                        <div className="flex flex-row bg-slate-300 m-2 p-3 rounded text-sm">
+                            <code className="basis-1/2 max-h-44 overflow-auto mr-3">
+                                {value.input}
+                            </code>
+                            <code className="basis-1/2 max-h-44 overflow-auto"> 
+                                {value.result}
+                            </code> 
+                            <br/>
+                        </div>
+                    </React.Fragment>
+            ))
         :
-        <code>No example registered</code>
+            <div className="flex flex-row m-2 p-3 rounded text-gray-200 justify-center">
+                <code>No examples registered</code>                
+            </div>
             
     )
 }

@@ -1,13 +1,13 @@
 import {create} from 'zustand';
 
-interface inputStore{
-    userInputs: string,
-    userResults:string,
-    updateUserInput: (input:string) => void,
-    updateUserResults: (input:string) => void
+interface InputStore{
+    userInputs: string;
+    userResults:string;
+    updateUserInput: (input:string) => void;
+    updateUserResults: (input:string) => void;
 }
 
-export const userInputStore = create<inputStore>((set)=>
+export const userInputStore = create<InputStore>((set)=>
 ({
     userInputs: "",
     userResults: "",
@@ -19,21 +19,32 @@ export const userInputStore = create<inputStore>((set)=>
     }))
 }))
 
-interface arrInterface{
-    examples: object[],
-    updateUserInputArr: (input:object)=>void,
-    deleteUserInputArr: ()=>void
+export interface ShotsTypes {
+    input: string, 
+    result: string
+}
+
+export type cicleShotsTypes = Record<number, ShotsTypes>;
+
+interface ArrInterface{
+    examples: cicleShotsTypes;
+    updateUserInputArr: (input:ShotsTypes)=>void;
+    deleteUserInputArr: ()=>void;
 }
 
 //store for array that stores user's input and results.
 //these are the examples that are fed to GPT. 
-export const userInputsArr = create<arrInterface>((set)=>({
-    examples: [],
-    updateUserInputArr: (input:object)=> set((status:arrInterface)=>({
-        examples: [...status.examples, input]
-    })),
+let index:number = 0;
+export const userInputsArr = create<ArrInterface>((set)=>({
+    examples: {},
+    updateUserInputArr: (input:ShotsTypes)=> set((status:ArrInterface)=>{
+        status.examples[index] = {input: input.input, result: input.result};
+        index++;
+        return {examples: status.examples}
+    }),
     deleteUserInputArr:() => set((status:any)=>{
-        status.examples = []
+        status.examples = {}
+        index = 0;
         return status.examples;
     })    
 }))
