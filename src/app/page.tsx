@@ -15,9 +15,6 @@ const openai = new OpenAI({
 
 export default function Home() {
 
-  //Zudstand for the input of the user
-  // const[userInputs] = userInputStore((state) => [state.userInputs]);
-
   const [updateUserInputArr, examples] = userInputsArr((state)=> [state.updateUserInputArr,
                                                         state.examples]);
 

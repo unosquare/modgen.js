@@ -1,10 +1,5 @@
 import { ShotsTypes, userInputsArr, userInputStore} from '@/store/inputStore';
 
-// interface templateTypes{
-//     role:string;
-//     content:string;
-// }
-
 export function insertExamples(examples:ShotsTypes[]){
     const msjs:any[] = [];
     msjs.push({"role": "System", "content":"You are a code generator machine"});
