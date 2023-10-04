@@ -21,7 +21,7 @@ export const userInputStore = create<InputStore>((set)=>
 
 export interface ShotsTypes {
     input: string, 
-    result: string
+    result?: string
 }
 
 interface ArrInterface{

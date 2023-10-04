@@ -1,12 +1,10 @@
 'use client'
 import { useMutation } from "react-query";
 import OpenAI from 'openai';
-import { userInputStore, ShotsTypes, userInputsArr} from '@/store/inputStore';
 import Examples from './components/Examples';
-import Result from './components/Result';
-import Model from './components/Model';
 import Container from './components/Container';
 import { insertExamples } from './promptTemplates';
+import Inputs from './components/Inputs';
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
@@ -14,28 +12,17 @@ const openai = new OpenAI({
 });
 
 export default function Home() {
-
-  const [updateUserInputArr, examples] = userInputsArr((state)=> [state.updateUserInputArr,
-                                                        state.examples]);
-
-  const clickedAdd = (input:string, result:string)=>{        
-    if(input.trim() != '' && result.trim() != ''){
-      updateUserInputArr({input, result});
-    }
-}
-
   //react query request, error handlers and fetch trigger
   const { data, 
           isError, 
           isLoading, 
           mutateAsync } = useMutation(
-                                        () => gptQuery(insertExamples(examples))
+                                        (examples:any[]) => gptQuery(insertExamples(examples))
                                      );
   
   //send request to gpt after button is pressed
-  async function send(){
-    console.log(insertExamples(examples));
-    // await mutateAsync();
+  async function send(examples:any[]){
+    await mutateAsync(examples);
   }
 
   //check status of the request
@@ -55,12 +42,7 @@ export default function Home() {
           <Examples send={send}/>
         </Container>
 
-        <Container className="flex flex-col">
-            <Model />
-
-            <Result data={data} clickedAdd={clickedAdd}/ >
-        </Container>
-
+        <Inputs data={data}/>        
       </div>  
     </>
   )
@@ -71,7 +53,6 @@ async function gptQuery(input:any[]) {
     model: "gpt-3.5-turbo",
     messages: input,
   });
-  console.log(chatCompletion.choices);
   
   return chatCompletion.choices[0].message.content;
 }
