@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
 interface InputStore{
     userInputs: string;
@@ -21,7 +21,7 @@ export const userInputStore = create<InputStore>((set)=>
 
 export interface ShotsTypes {
     input: string, 
-    result?: string
+    result: string
 }
 
 interface ArrInterface{

@@ -5,6 +5,7 @@ import Examples from './components/Examples';
 import Container from './components/Container';
 import { insertExamples } from './promptTemplates';
 import Inputs from './components/Inputs';
+import { ShotsTypes } from "@/store/inputStore";
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
@@ -17,17 +18,19 @@ export default function Home() {
           isError, 
           isLoading, 
           mutateAsync } = useMutation(
-                                        (examples:any[]) => gptQuery(insertExamples(examples))
+                                        ({examples, lastPrompt}:{examples:ShotsTypes[], lastPrompt:string}) =>{
+                                          return gptQuery(insertExamples(examples, lastPrompt));                                         
+                                        } 
                                      );
   
   //send request to gpt after button is pressed
-  async function send(examples:any[]){
-    await mutateAsync(examples);
-  }
-
-  //check status of the request
-  if(isLoading){
-    return <p>Loading...</p> 
+  async function send(examples:ShotsTypes[], lastPrompt:string){
+    const united:{examples:ShotsTypes[], lastPrompt:string} = {
+      examples,
+      lastPrompt
+    };
+    // console.log(insertExamples(united.examples, united.lastPrompt));
+    await mutateAsync(united);
   }
 
   if(isError){
@@ -36,23 +39,30 @@ export default function Home() {
   
   return(
     <>
-      <h1>ModGen.js</h1>
-      <div className='flex flex-row text-xl justify-center py-10'>
-        <Container className="mr-7">
-          <Examples send={send}/>
-        </Container>
+      <div className='flex justify-center h-screen pt-20'>
+        <div className="flex flex-row text-base justify-center flex-auto mx-28">
+          <Container className="mr-7 w-1/3">
+            <Examples send={send}/>
+          </Container>
 
-        <Inputs data={data}/>        
+          <Inputs data={data} isLoading={isLoading}/> 
+        </div>       
       </div>  
     </>
   )
 }
 
-async function gptQuery(input:any[]) {
-  const chatCompletion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages: input,
-  });
+async function gptQuery(input:{"role":string, "content":string}[]) {
+  // const chatCompletion = await openai.chat.completions.create({
+  //   model: "gpt-3.5-turbo",
+  //   messages: input,
+  // });
+  // console.log(chatCompletion.choices);
   
-  return chatCompletion.choices[0].message.content;
+  // return chatCompletion.choices[0].message.content;
+  return await new Promise<string | null | undefined>((resolve, reject) => setTimeout(()=>{
+    const proceesed:string | null | undefined = input[0].content; 
+    console.log(input);
+    resolve(proceesed);
+  }, 8000));
 }
