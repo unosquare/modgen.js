@@ -1,4 +1,7 @@
 import { ShotsTypes } from '@/store/inputStore';
+import React, { useEffect } from 'react';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
 
 interface ShotsType{
     examples: ShotsTypes[];
@@ -6,7 +9,10 @@ interface ShotsType{
 
 //shots are a single example
 function Shots({ examples }:ShotsType){
-
+    useEffect(() => {
+        Prism.highlightAll();
+    },[examples])
+      
     if(!(examples.length > 0) ){
         return(
             <div className="flex items-center justify-center content-center rounded text-gray-200 h-full flex-auto w-full">
@@ -15,28 +21,21 @@ function Shots({ examples }:ShotsType){
         )             
     }else{
         return examples.map((shot, index)=>{
-            if(!shot.result || shot.result === ''){
-                return(
-                    <div className="flex flex-col justify-start items-center bg-slate-800 m-2 p-3 rounded text-sm text-white" 
-                            key={index}
-                    >
-                        <code className="max-h-44 overflow-auto">
-                            {shot.input}
-                        </code>
-                    </div>
-                )             
-            }
             return(
-                <div className="flex flex-row bg-slate-300 m-2 p-3 rounded text-sm max-h-44" 
+                <div className="flex flex-row bg-slate-300 m-2 p-3 rounded text-xs max-h-44" 
                      key={index}
                 >
-                    <code className="overflow-auto basis-2/5 grow">
-                        {shot.input}
-                    </code>
+                    <pre className="overflow-auto basis-2/5 grow whitespace-pre-wrap">
+                        <code className="language-javascript">
+                            {shot.input}
+                        </code>                        
+                    </pre>
                     <div className="bg-slate-100 basis-1/5 max-w-[2px] rounded"/>
-                    <code className="overflow-auto basis-2/5 grow ml-1"> 
-                        {shot.result}
-                    </code>
+                    <pre className="overflow-auto ml-1 basis-2/5 grow ">
+                        <code className="language-javascript"> 
+                            {shot.result}
+                        </code>
+                    </pre>
                 </div>
             )
         });

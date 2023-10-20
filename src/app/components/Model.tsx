@@ -17,26 +17,21 @@ export function Model({ userInput, updateUserInput, disabled }: ModelTypes){
     return(
         <>
             <h1 className="basis-1/12">Input</h1>
-            <div className="overflow-auto basis-5/12 rounded bg-white text-black max-w-full">
+            <div className="overflow-auto basis-5/12 rounded bg-white text-black w-full whitespace-pre-wrap">
                 <Editor value={userInput}
                         highlight={userInput => highlight(userInput, languages.javascript,'javascript')}
                         onValueChange={userInput=>updateUserInput(userInput)}
                         style={{
                             minHeight:"100%",
-                            maxWidth:"90%",
-                            borderRadius:"0.25rem"
+                            borderRadius:"0.25rem",
                         }}
+                        preClassName="!break-all"
+                        textareaClassName="!break-all"
                         padding={7}
                         disabled={disabled}
                         placeholder="Input some code..."
                 />
             </div>
-            {/* <textarea value={userInput}
-                      onChange={(event)=>{updateUserInput(event.target.value); console.log(event.target)}}
-                      className="text-black basis-5/12 w-full rounded p-2 resize-none whitespace-pre-wrap" 
-                      disabled={disabled}
-            /> */}
-
         </>
     )
 }

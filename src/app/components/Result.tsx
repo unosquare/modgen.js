@@ -27,19 +27,18 @@ export function Result({ data, clickedAdd, userResults, updateUserResults, disab
     return(
         <>
             <h1 className="basis-1/12">Result</h1>
-            <Editor value={userResults}
-                    highlight={userResults => highlight(userResults, languages.javascript,'javascript')}
-                    onValueChange={userResults=>updateUserResults(userResults)}
-                    className= {`text-black bg-white basis-5/12 w-full rounded p-2 resize-none ${textAreaClassName}`}
-                    padding={7}
-                    disabled={disabled}
-                    placeholder="Input a result..."
-            />
-            {/* <textarea value={userResults}
-                      onChange={(event)=>updateUserResults(event.target.value)}               
-                      className= {`text-black basis-5/12 w-full rounded p-2 resize-none ${textAreaClassName}`}
-                      disabled={disabled} 
-            /> */}
+            <div className="basis-5/12 h-full overflow-auto">
+                <Editor value={userResults}
+                        highlight={userResults => highlight(userResults, languages.javascript,'javascript')}
+                        onValueChange={userResults=>updateUserResults(userResults)}
+                        className= {`min-h-full text-black bg-white basis-5/12 w-full rounded p-2 resize-none ${textAreaClassName}`}
+                        padding={7}
+                        preClassName="!break-all"
+                        textareaClassName="!break-all"
+                        disabled={disabled}
+                        placeholder="Input a result..."
+                />
+            </div>
             <div className="basis-1/12">
                 <button type='button' 
                         className='hover:bg-slate-600 py-2 px-2 rounded border-slate-300'

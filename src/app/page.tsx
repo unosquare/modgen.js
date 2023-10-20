@@ -29,7 +29,6 @@ export default function Home() {
       examples,
       lastPrompt
     };
-    // console.log(insertExamples(united.examples, united.lastPrompt));
     await mutateAsync(united);
   }
 
@@ -39,9 +38,9 @@ export default function Home() {
   
   return(
     <>
-      <div className='flex justify-center h-screen pt-20'>
-        <div className="flex flex-row text-base justify-center flex-auto mx-28">
-          <Container className="mr-7 w-1/3">
+      <div className='flex justify-center h-screen pt-7'>
+        <div className="flex flex-row text-base justify-center flex-auto mx-12">
+          <Container className="mr-7 w-5/12">
             <Examples send={send}/>
           </Container>
 
@@ -52,17 +51,12 @@ export default function Home() {
   )
 }
 
-async function gptQuery(input:{"role":string, "content":string}[]) {
-  // const chatCompletion = await openai.chat.completions.create({
-  //   model: "gpt-3.5-turbo",
-  //   messages: input,
-  // });
-  // console.log(chatCompletion.choices);
+async function gptQuery(input:any[]) {
+  const chatCompletion = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: input,
+  });
+  console.log(chatCompletion.choices);
   
-  // return chatCompletion.choices[0].message.content;
-  return await new Promise<string | null | undefined>((resolve, reject) => setTimeout(()=>{
-    const proceesed:string | null | undefined = input[0].content; 
-    console.log(input);
-    resolve(proceesed);
-  }, 8000));
+  return chatCompletion.choices[0].message.content;  
 }
