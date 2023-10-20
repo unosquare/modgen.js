@@ -19,7 +19,7 @@ function Inputs({ data, isLoading }:InputsType){
                                                          state.updateUserInput,
                                                          state.updateUserResults]);   
 
-    const readyToSend = examples.length > 0 && examples[examples.length-1].result === '' ? true : false;     
+    const readyToSend = (examples.length > 0 && examples[examples.length-1].result === '');
 
     const clickedAdd = () => { 
         if((userInput.trim() !== '' && userResults.trim() !== '')){

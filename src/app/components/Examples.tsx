@@ -13,7 +13,7 @@ export function Examples({ send }: ExampleTypes){
                                                 state.examples]);
     const [userInputs] = userInputStore((state)=>[state.userInputs]);
     //1 shot minimun must be added to send a response request to GPT                                            
-    const disabled = examples.length >= 1 && userInputs !== '' ? false : true;
+    const disabled = !(examples.length >= 1 && userInputs !== '');
 
     return(        
         <>
