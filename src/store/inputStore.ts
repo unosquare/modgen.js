@@ -30,7 +30,7 @@ interface ArrInterface{
     deleteUserInputArr: ()=>void;
 }
 
-//store for array that stores user's input and results.
+//array that stores user's inputs and results.
 //these are the examples that are fed to GPT. 
 export const userInputsArr = create<ArrInterface>((set)=>({
     examples: [],
@@ -38,6 +38,8 @@ export const userInputsArr = create<ArrInterface>((set)=>({
         examples:[...status.examples, {input: input.input, result: input.result}]
     })),
     deleteUserInputArr:() => set((status:any)=>{
+        userInputStore.getState().updateUserInput('');
+        userInputStore.getState().updateUserResults('');
         status.examples = [];
         return status.examples;
     })    
