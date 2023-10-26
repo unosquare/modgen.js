@@ -27,7 +27,7 @@ export function insertExamples(examples:ShotsTypes[], lastPrompt:string){
             break;
         }
     }
-    console.log(msjs)
+    console.log(msjs);
     return msjs;
 }
 
