@@ -41,7 +41,7 @@ export default function Home() {
       <div className='flex justify-center h-screen pt-7'>
         <div className="flex flex-row text-base justify-center flex-auto mx-12">
           <Container className="mr-7 w-5/12">
-            <Examples send={send}/>
+            <Examples send={send} isLoading={isLoading}/>
           </Container>
 
           <Inputs data={data} isLoading={isLoading}/> 
@@ -58,5 +58,5 @@ async function gptQuery(input:any[]) {
   });
   console.log(chatCompletion.choices);
   
-  return chatCompletion.choices[0].message.content;  
+  return chatCompletion.choices[0].message.content; 
 }

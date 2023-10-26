@@ -1,7 +1,7 @@
 import Model from './Model';
 import Result from './Result';
 import Container from './Container';
-import { userInputsArr, userInputStore } from '../../store/inputStore';
+import { userInputsArr} from '../../store/inputStore';
 
 interface InputsType{
     data: string | undefined | null;
@@ -9,17 +9,16 @@ interface InputsType{
 }
 
 function Inputs({ data, isLoading }:InputsType){
-    const [updateUserInputArr, examples] = userInputsArr((state)=> [state.updateUserInputArr,
-                                                                    state.examples]);
-    const [userInput, 
-           userResults, 
+    const [updateUserInputArr,
+           userInput, 
            updateUserInput,
-           updateUserResults] = userInputStore((state)=>[state.userInputs, 
-                                                         state.userResults,
+           userResults, 
+           updateUserResults] = userInputsArr((state)=> [state.updateUserInputArr,
+                                                         state.userInputs, 
                                                          state.updateUserInput,
-                                                         state.updateUserResults]);   
+                                                         state.userResults,
+                                                         state.updateUserResults]);  
 
-    const readyToSend = (examples.length > 0 && examples[examples.length-1].result === '');
 
     const clickedAdd = () => { 
         if((userInput.trim() !== '' && userResults.trim() !== '')){
@@ -31,12 +30,12 @@ function Inputs({ data, isLoading }:InputsType){
 
     return(
         <Container className="w-7/12">
-            <Model userInput={userInput} updateUserInput={updateUserInput} disabled={readyToSend}/>
+            <Model userInput={userInput} updateUserInput={updateUserInput} disabled={isLoading}/>
             <Result data={data} 
                     clickedAdd={clickedAdd} 
                     userResults={userResults} 
                     updateUserResults={updateUserResults}
-                    disabled={readyToSend}
+                    disabled={isLoading}
                     isLoading={isLoading}
             />
         </Container>
