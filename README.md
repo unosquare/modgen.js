@@ -13,6 +13,7 @@ Stack
 
 ModGen.js it's a web tool for code generation. It uses GPT to process the user's input and examples. The examples are provided to train GPT, this improves the returned results. This technique is called "few shots learning", this provides GPT with some understanding of what type of code the user wants, and if enough examples are provided, GPT can return similar structured code based on the examples.
 The goal is to first register a couple of examples (examples are composed of 1 input and 1 result) and then, send the code snippet you want GPT to grab data from. Resulting on the return of a similar response to the results you registered, but with the data, structures and patterns of the last input.
+![DemostracionModGen js ‐ Hecho con Clipchamp](https://github.com/unosquare/modgen.js/assets/99301366/aa5112f7-a4eb-4913-9d58-f8566fd372c6)
 
 ### Usage
 As described in the past section, you must first write/copy and paste/obtain at least a couple of examples similar to the code you are trying to generate. Examples are composed of; 1) an input: this input is the "first" part of your examples, is usually the code you are trying to get the data from, example:
