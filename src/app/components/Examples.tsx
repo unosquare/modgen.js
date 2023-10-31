@@ -33,8 +33,8 @@ export function Examples({ send, isLoading }: ExampleTypes){
 
     return(        
         <>
-            <h1 className="flex-inital basis-1/12 ml-0 pr-0 ">Examples</h1>
-            <div className="flex flex-col justify-start items-stretch basis-10/12 w-full bg-white text-black rounded overflow-y-auto">
+            <h1 className='flex-inital basis-1/12 ml-0 pr-0 '>Examples</h1>
+            <div className='flex flex-col justify-start items-stretch basis-10/12 w-full bg-white text-black rounded overflow-y-auto'>
                 <Shots examples={examples}/>
             </div>
             <ButtonsEx handleDeleteAll={handleDeleteAll}

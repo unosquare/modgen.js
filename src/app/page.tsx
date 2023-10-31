@@ -1,11 +1,11 @@
 'use client'
-import { useMutation } from "react-query";
+import { useMutation } from 'react-query';
 import OpenAI from 'openai';
 import Examples from './components/Examples';
 import Container from './components/Container';
 import { insertExamples } from './promptTemplates';
 import Inputs from './components/Inputs';
-import { ShotsTypes } from "@/store/inputStore";
+import { ShotsTypes } from '@/store/inputStore';
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
@@ -38,9 +38,12 @@ export default function Home() {
   
   return(
     <>
-      <div className='flex justify-center h-screen pt-7'>
-        <div className="flex flex-row text-base justify-center flex-auto mx-12">
-          <Container className="mr-7 w-5/12">
+      <div className='flex flex-col justify-center h-screen pt-7'>
+        <div className='basis-1/12 mx-12'>
+          <h1 className='text-3xl font-black'>ModGen.js</h1>
+        </div>
+        <div className='flex flex-row text-base justify-center flex-auto mx-12 basis-11/12'>
+          <Container className='mr-7 w-5/12'>
             <Examples send={send} isLoading={isLoading}/>
           </Container>
 
@@ -53,10 +56,9 @@ export default function Home() {
 
 async function gptQuery(input:any[]) {
   const chatCompletion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: 'gpt-3.5-turbo',
     messages: input,
   });
-  console.log(chatCompletion.choices);
   
-  return chatCompletion.choices[0].message.content; 
+  return chatCompletion.choices[0].message.content;
 }

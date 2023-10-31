@@ -23,8 +23,8 @@ function ButtonsEx({
     send
 }:interfaceButtonsEx) {
     return(
-        <div id="examples-btns" className="flex flex-row justify-start flex-initial basis-1/12">
-            <button type="button" 
+        <div id='examples-btns' className='flex flex-row justify-start flex-initial basis-1/12'>
+            <button type='button'
                     className={`flex-initial  py-2 px-2 rounded mr-5 ${classNameForButton}`}
                     onClick={handleDeleteAll}
                     disabled={isLoading}
