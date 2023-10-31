@@ -29,8 +29,10 @@ function Inputs({ data, isLoading }:InputsType){
     };    
 
     return(
-        <Container className="w-7/12">
-            <Model userInput={userInput} updateUserInput={updateUserInput} disabled={isLoading}/>
+        <Container className='w-7/12'>
+            <Model userInput={userInput} 
+                   updateUserInput={updateUserInput} 
+                   disabled={isLoading}/>
             <Result data={data} 
                     clickedAdd={clickedAdd} 
                     userResults={userResults} 

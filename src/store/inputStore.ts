@@ -17,18 +17,15 @@ interface ArrInterface{
 //array that stores user's inputs and results.
 //these are the examples that are fed to GPT. 
 export const userInputsArr = create<ArrInterface>((set)=>({
-    //combined input and results
+    //combined input and result: example
     examples: [],
     updateUserInputArr: (input:ShotsTypes)=> set((status:ArrInterface)=>({
         examples:[...status.examples, {input: input.input, result: input.result}]
     })),
-    deleteUserInputArr:() => set((status:any)=>{
-        status.examples = [];
-        return status.examples;
-    }),
+    deleteUserInputArr:() => set({examples: []}),
     //for single input and result
-    userInputs: "",
-    userResults: "",
+    userInputs: '',
+    userResults: '',
     updateUserInput:(input: string) => set(()=>({
         userInputs: input
     })),

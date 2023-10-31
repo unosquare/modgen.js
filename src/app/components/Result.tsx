@@ -28,20 +28,20 @@ export function Result({ data, clickedAdd, userResults, updateUserResults, disab
 
     return(
         <>
-            <h1 className="basis-1/12">Result</h1>
-            <div className="basis-5/12 h-full overflow-auto">
+            <h1 className='basis-1/12'>Result</h1>
+            <div className='basis-5/12 h-full rounded overflow-auto'>
                 <Editor value={userResults}
                         highlight={userResults => highlight(userResults, languages.tsx,'tsx')}
                         onValueChange={userResults=>updateUserResults(userResults)}
                         className= {`min-h-full text-black bg-white basis-5/12 w-full rounded p-2 resize-none ${textAreaClassName}`}
                         padding={7}
-                        preClassName="!break-all"
-                        textareaClassName="!break-all"
+                        preClassName='!break-all'
+                        textareaClassName='!break-all'
                         disabled={disabled}
-                        placeholder="Input a result..."
+                        placeholder='Input a result...'
                 />
             </div>
-            <div className="basis-1/12">
+            <div className='basis-1/12'>
                 <button type='button' 
                         className={`py-2 px-2 rounded ${buttonClassName}`}
                         onClick={()=>clickedAdd()}
