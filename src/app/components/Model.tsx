@@ -16,11 +16,12 @@ interface ModelTypes {
 export const Model = ({ userInput, updateUserInput, disabled }: ModelTypes) => (
     <>
         <h1 className='basis-1/12'>Input</h1>
-        <div className='basis-5/12 max-h-40 overflow-auto rounded bg-white text-black w-full whitespace-pre-wrap'>
+        <div className='basis-5/12 lg:max-h-96 xl:max-h-[28rem] 2xl:max-h-[50rem] overflow-auto rounded bg-white text-black w-full whitespace-pre-wrap'>
             <Editor
                 value={userInput}
                 highlight={(userInputWritten) => highlight(userInputWritten, languages.tsx, 'tsx')}
                 onValueChange={(userInputWritten) => updateUserInput(userInputWritten)}
+                className='resize-none'
                 style={{
                     minHeight: '100%',
                 }}

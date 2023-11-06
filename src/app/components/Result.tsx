@@ -29,7 +29,7 @@ export const Result = ({ data, clickedAdd, userResults, updateUserResults, disab
     return (
         <>
             <h1 className='basis-1/12'>Result</h1>
-            <div className='basis-5/12 max-h-40 rounded overflow-auto'>
+            <div className='basis-5/12 lg:max-h-96 xl:max-h-[28rem] 2xl:max-h-[50rem] rounded overflow-auto'>
                 <Editor
                     value={userResults}
                     highlight={(userResultsWritten) => highlight(userResultsWritten, languages.tsx, 'tsx')}
