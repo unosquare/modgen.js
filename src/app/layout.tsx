@@ -1,25 +1,21 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Providers from './provider'
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Providers from './provider';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'ModGen.js',
-  description: 'Code generator',
-}
+    title: 'ModGen.js',
+    description: 'Code generator',
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <html lang='en'>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>  
-      </body>
+        <body className={inter.className}>
+            <Providers>{children}</Providers>
+        </body>
     </html>
-  )
-}
+);
+
+export default RootLayout;

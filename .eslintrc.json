@@ -11,8 +11,13 @@
       "browser": true,
       "jest": true
   },
-  "extends": "eslint-config-unosquare",
+  "extends": ["eslint-config-unosquare", "next/core-web-vitals"],
   "plugins": ["eslint-plugin-prettier","unused-imports"],
+  "parserOptions": {
+        "ecmaVersion": 2020,
+        "project": ["tsconfig.json"] ,
+        "sourceType": "module"
+    },
   "rules": {
       "react-hooks/exhaustive-deps": "warn",
       "no-param-reassign": "warn",
