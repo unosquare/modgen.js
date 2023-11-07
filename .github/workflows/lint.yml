@@ -1,0 +1,25 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v4
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.18.2
+          cache: 'npm'
+      - name: 🤠 npm install
+        run: npm ci
+      - name: ✔ Lint
+        uses: sibiraj-s/action-eslint@v3
+        with:
+          extensions: 'ts,tsx'
+          annotations: true
