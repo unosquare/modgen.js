@@ -5,6 +5,7 @@ import Examples from './components/Examples';
 import Container from './components/Container';
 import insertExamples from './promptTemplates';
 import Inputs from './components/Inputs';
+import ToolBar from './components/ToolBar';
 import { ShotsTypes } from '@/store/inputStore';
 
 const openai = new OpenAI({
@@ -42,20 +43,19 @@ const Home = () => {
     }
 
     return (
-        <>
-            <div className='flex flex-col justify-center h-screen pt-7'>
-                <div className='basis-1/12 mx-12'>
-                    <h1 className='text-3xl font-black'>ModGen.js</h1>
-                </div>
-                <div className='flex flex-row text-base justify-center flex-auto mx-12 basis-11/12'>
-                    <Container className='mr-7 w-5/12'>
-                        <Examples send={send} isLoading={isLoading} />
-                    </Container>
-
-                    <Inputs data={data} isLoading={isLoading} />
-                </div>
+        <div className='flex flex-col pt-3 h-screen'>
+            <div className='mx-6 mb-3 flex flex-row basis-[2%]'>
+                <h1 className='text-3xl font-black place-self-center'>ModGen.js</h1>
+                <ToolBar isLoading={isLoading} send={send} />
             </div>
-        </>
+            <div className='flex flex-row text-base grow min-h-0 basis-[98%]'>
+                <Inputs data={data} isLoading={isLoading} />
+
+                <Container className='w-5/12'>
+                    <Examples />
+                </Container>
+            </div>
+        </div>
     );
 };
 
