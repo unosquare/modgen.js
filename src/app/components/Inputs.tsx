@@ -26,7 +26,7 @@ const Inputs = ({ data, isLoading }: InputsType) => {
     };
 
     return (
-        <Container className='md:max-h-96 lg:max-h-[30rem] xl:max-h-[36rem] 2xl:max-h-[50rem] min-[2000px]:max-h-[64.7rem] min-[3000px]:max-h-[132rem] w-7/12'>
+        <Container className='flex flex-row w-[115vh] max-h-[28vh] grow'>
             <Model userInput={userInput} updateUserInput={updateUserInput} disabled={isLoading} />
             <Result
                 data={data}

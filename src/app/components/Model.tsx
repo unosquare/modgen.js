@@ -14,17 +14,14 @@ interface ModelTypes {
 
 // model are the inputs from the user, these are part of the prompt
 export const Model = ({ userInput, updateUserInput, disabled }: ModelTypes) => (
-    <>
-        <h1 className='basis-1/12'>Input</h1>
-        <div className='basis-5/12 lg:max-h-96 xl:max-h-[28rem] 2xl:max-h-[50rem] overflow-auto rounded bg-white text-black w-full whitespace-pre-wrap'>
+    <div className='flex flex-col w-[50%] h-full grow border border-gray-700'>
+        <h1 className='basis-[2%] ml-2'>Model</h1>
+        <div className='basis-[98%] overflow-auto bg-white text-black whitespace-pre-wrap grow'>
             <Editor
                 value={userInput}
                 highlight={(userInputWritten) => highlight(userInputWritten, languages.tsx, 'tsx')}
                 onValueChange={(userInputWritten) => updateUserInput(userInputWritten)}
-                className='resize-none'
-                style={{
-                    minHeight: '100%',
-                }}
+                className='min-h-full'
                 preClassName='!break-all '
                 textareaClassName='!break-all '
                 padding={7}
@@ -32,7 +29,7 @@ export const Model = ({ userInput, updateUserInput, disabled }: ModelTypes) => (
                 placeholder='Input some code...'
             />
         </div>
-    </>
+    </div>
 );
 
 export default Model;

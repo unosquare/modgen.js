@@ -18,21 +18,16 @@ const ButtonsEx = ({
     disabled,
     onClickHandler,
 }: interfaceButtonsEx) => (
-    <div id='examples-btns' className='flex flex-row justify-start flex-initial basis-1/12'>
+    <div id='examples-btns' className='flex flex-row basis-1/12'>
         <button
             type='button'
-            className={`flex-initial  py-2 px-2 rounded mr-5 ${classNameForButton}`}
+            className={`rounded ${classNameForButton}`}
             onClick={handleDeleteAll}
             disabled={isLoading}
         >
             Delete all
         </button>
-        <button
-            onClick={onClickHandler}
-            type='button'
-            className={`flex-initial py-2 px-2 rounded ${classNameForSend}`}
-            disabled={disabled}
-        >
+        <button onClick={onClickHandler} type='button' className={`rounded ${classNameForSend}`} disabled={disabled}>
             Send
         </button>
     </div>

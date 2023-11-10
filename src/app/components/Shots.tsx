@@ -15,7 +15,7 @@ const Shots = ({ examples }: ShotsType) => {
 
     if (!(examples.length > 0)) {
         return (
-            <div className='flex items-center justify-center content-center rounded text-gray-200 h-full flex-auto w-full'>
+            <div className='flex items-center justify-center content-center rounded text-gray-300 h-full flex-auto w-full'>
                 <code className='select-none'>No examples registered</code>
             </div>
         );

@@ -29,3 +29,8 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+button{
+  border-width: 1px;
+  border-color: rgb(62, 71, 80);
+}
