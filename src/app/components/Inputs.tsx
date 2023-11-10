@@ -17,7 +17,7 @@ const Inputs = ({ data, isLoading }: InputsType) => {
     ]);
 
     return (
-        <Container className='flex flex-row w-[115vh] max-h-[28vh] grow'>
+        <Container className='flex flex-row w-7/12 grow'>
             <Model userInput={userInput} updateUserInput={updateUserInput} disabled={isLoading} />
             <Result
                 data={data}

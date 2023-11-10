@@ -14,7 +14,7 @@ interface ArrInterface {
     userResults: string;
     updateUserInput: (input: string) => void;
     updateUserResults: (input: string) => void;
-    loadDefaultExample: (input: string) => void;
+    loadDefaultExample: () => void;
 }
 
 const exampleOne = (): ShotsTypes => {
@@ -27,7 +27,6 @@ const exampleOne = (): ShotsTypes => {
 // these are the examples that are fed to GPT.
 export const userInputsArr = create<ArrInterface>((set) => ({
     // combined input and result: example
-    // examples: [exampleOne()],
     examples: [defaultExamples.examples[0]],
     updateUserInputArr: (input: ShotsTypes) =>
         set((status: ArrInterface) => ({

@@ -48,10 +48,10 @@ const Home = () => {
                 <h1 className='text-3xl font-black place-self-center'>ModGen.js</h1>
                 <ToolBar isLoading={isLoading} send={send} />
             </div>
-            <div className='flex flex-row text-base grow min-h-[70%] basis-[98%]'>
+            <div className='flex flex-row text-base grow min-h-0 basis-[98%]'>
                 <Inputs data={data} isLoading={isLoading} />
 
-                <Container className='w-5/12 '>
+                <Container className='w-5/12'>
                     <Examples />
                 </Container>
             </div>

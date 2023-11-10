@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react';
 import { ShotsTypes, userInputsArr } from '../../store/inputStore';
@@ -54,7 +55,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
         await send(examples, userInput);
     };
 
-    const useTheMode = (bol: boolean) => {
+    const onModeClick = (bol: boolean) => {
         useMode(bol);
     };
 
@@ -97,7 +98,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-yellow-100 hover:text-black'
                             type='button'
-                            onClick={() => useTheMode(true)}
+                            onClick={() => onModeClick(true)}
                             disabled={isLoading}
                         >
                             Example
@@ -105,7 +106,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-blue-200 hover:text-black'
                             type='button'
-                            onClick={() => useTheMode(false)}
+                            onClick={() => onModeClick(false)}
                             disabled={isLoading}
                         >
                             Request
