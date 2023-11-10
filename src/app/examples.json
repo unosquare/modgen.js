@@ -1,0 +1,17 @@
+{
+    "examples":[
+        {
+            "input":"const rows = [\n\t{ id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },\n\t{ id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },\n\t{ id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },\n\t{ id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },\n\t{ id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },\n\t{ id: 6, lastName: 'Melisandre', firstName: null, age: 150 },\n\t{ id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },\n\t{ id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },\n\t{ id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },\n];",
+            "result":"const columns: GridColDef[] = [\n\t{ field: 'id', headerName: 'ID', width: 90 },\n\t{\n\t\tfield: 'firstName',\n\t\theaderName: 'First name',\n\t\twidth: 150,\n\t\teditable: true,\n\t},\n\t{\n\t\tfield: 'lastName',\n\t\theaderName:'Last name',\n\t\twidth: 150,\n\t\teditable: true,\n\t},\n\t{\n\t\tfield: 'age',\n\t\theaderName: 'Age',\n\t\ttype: 'number',\n\t\twidth: 110,\n\t\teditable: true,\n\t},\n\t{\n\t\tfield: 'fullName',\n\t\theaderName: 'Full name',\n\t\tdescription: 'This column has a value getter and is not sortable.',\n\t\tsortable: false,\n\t\twidth: 160,\n\t\tvalueGetter: (params: GridValueGetterParams) =>\n\t\t\t`${params.row.firstName || ''}${params.row.lastName || ''}`,\n\t},\n];"
+        },
+        {
+            "input":"type CsCapacity = {\n\tName: string;\n\tSeniority: string;\n\tAccountsAssigned: number;\n\tBaselineCapacity: number;\n\tDpsSupported: number;\n\tCurrentCapacity: number;\n};",
+            "result":"const getCapacityData = (data?: CsCapacity[]) =>\n\tsafeMap(data, (entry) => [\n\t\tentry.Name,\n\t\tentry.Seniority,\n\t\tentry.AccountsAssigned,\n\t\tentry.BaselineCapacity,\n\t\tentry.DpsSupported,\n\t\tentry.CurrentCapacity,\n\t]);"
+            
+        },
+        {
+            "input":"const cerealsObj:any[] = [\n\t{\n\t\taddItemsSold:function (addUp:number){\n\t\t\tthis.attributes[0].itemsSold += addUp;\n\t\t},\n\t\tname:'Zucaritas',\n\t\tattributes:[\n\t\t\t{\n\t\t\t\t\tindex:0,\n\t\t\t\t\titemsSold:90,\n\t\t\t\t}\n\t\t]\n\t},\n\t{\n\t\taddItemsSold:function (addUp:number){\n\t\t\tthis.attributes[0].itemsSold += addUp;\n\t\t},\n\t\tname:'Frootloops',\n\t\tattributes:[\n\t\t\t\t{\n\t\t\t\t\tindex:1,\n\t\t\t\t\titemsSold:10,\n\t\t\t\t}\n\t\t]\n\t},\n\t{\n\t\taddItemsSold:function (addUp:number){\n\t\t\tthis.attributes[0].itemsSold += addUp;\n\t\t},\n\t\tname:'Cornpops',\n\t\tattributes:[\n\t\t\t\t{\n\t\t\t\t\tindex:2,\n\t\t\t\t\titemsSold:1000,\n\t\t\t\t}\n\t\t]\n\t}\n];",
+            "result":"function cerealsTable():{headers:React.JSX.Element[], content:React.JSX.Element[]}{\n\tconst headers = cerealsObj.map((cereal,key) => {\n\t\treturn <th key={key}>{cereal.name}</th>\n\t});\n\n\tconst content = cerealsObj.map((cereal, key)=>{\n\t\treturn(\n\t\t\t<tr key={key}>\n\t\t\t\t<td>{Object.keys(cereal.attributes[0])[0]}</td>\n\t\t\t\t<td>{Object.keys(cereal.attributes[0])[1]}</td>\n\t\t\t\t<td> <button onClick={()=>cereal.addItemsSold(1)} >Add 1</button> </td>\n\t\t\t</tr>\n\t\t)\n\t});\n\n\treturn {headers, content};\n}"
+        }
+    ]
+}

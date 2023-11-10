@@ -52,7 +52,7 @@ const Home = () => {
                 <Inputs data={data} isLoading={isLoading} />
 
                 <Container className='w-5/12 '>
-                    <Examples send={send} isLoading={isLoading} />
+                    <Examples />
                 </Container>
             </div>
         </div>

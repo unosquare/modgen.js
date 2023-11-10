@@ -8,7 +8,6 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 interface ResultTypes {
     data: string | undefined | null;
-    clickedAdd: () => void;
     userResults: string;
     updateUserResults: (input: string) => void;
     disabled: boolean;
@@ -16,7 +15,7 @@ interface ResultTypes {
 }
 
 // results are GPT responses exemplified by the user
-export const Result = ({ data, clickedAdd, userResults, updateUserResults, disabled, isLoading }: ResultTypes) => {
+export const Result = ({ data, userResults, updateUserResults, disabled, isLoading }: ResultTypes) => {
     useEffect(() => {
         if (typeof data === 'string') {
             updateUserResults(data);
@@ -24,12 +23,11 @@ export const Result = ({ data, clickedAdd, userResults, updateUserResults, disab
     }, [data, updateUserResults]);
 
     const textAreaClassName = isLoading ? 'animate-pulse' : '';
-    const buttonClassName = disabled ? ' text-gray-400' : ' hover:bg-slate-600';
 
     return (
         <div className='flex flex-col w-[50%] h-full grow border border-gray-700'>
             <h1 className='basis-[2%] ml-2'>Result</h1>
-            <div className='basis-[98%] overflow-auto'>
+            <div className='basis-[98%] overflow-auto font-mono'>
                 <Editor
                     value={userResults}
                     highlight={(userResultsWritten) => highlight(userResultsWritten, languages.tsx, 'tsx')}
@@ -42,16 +40,6 @@ export const Result = ({ data, clickedAdd, userResults, updateUserResults, disab
                     placeholder='Input a result...'
                 />
             </div>
-            {/* <div className='basis-1/12'>
-                <button
-                    type='button'
-                    className={`rounded ${buttonClassName}`}
-                    onClick={() => clickedAdd()}
-                    disabled={disabled}
-                >
-                    Add
-                </button>
-            </div> */}
         </div>
     );
 };

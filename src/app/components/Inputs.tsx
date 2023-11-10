@@ -9,28 +9,18 @@ interface InputsType {
 }
 
 const Inputs = ({ data, isLoading }: InputsType) => {
-    const [updateUserInputArr, userInput, updateUserInput, userResults, updateUserResults] = userInputsArr((state) => [
-        state.updateUserInputArr,
+    const [userInput, updateUserInput, userResults, updateUserResults] = userInputsArr((state) => [
         state.userInputs,
         state.updateUserInput,
         state.userResults,
         state.updateUserResults,
     ]);
 
-    const clickedAdd = () => {
-        if (userInput.trim() !== '' && userResults.trim() !== '') {
-            updateUserInputArr({ input: userInput, result: userResults });
-            updateUserInput('');
-            updateUserResults('');
-        }
-    };
-
     return (
         <Container className='flex flex-row w-[115vh] max-h-[28vh] grow'>
             <Model userInput={userInput} updateUserInput={updateUserInput} disabled={isLoading} />
             <Result
                 data={data}
-                clickedAdd={clickedAdd}
                 userResults={userResults}
                 updateUserResults={updateUserResults}
                 disabled={isLoading}

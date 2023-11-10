@@ -16,6 +16,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
         updateUserResults,
         examples,
         deleteUserInputArr,
+        loadDefaultExample,
     ] = userInputsArr((state) => [
         state.updateUserInputArr,
         state.userInputs,
@@ -24,6 +25,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
         state.updateUserResults,
         state.examples,
         state.deleteUserInputArr,
+        state.loadDefaultExample,
     ]);
 
     const [mode, useMode] = useState(true);
@@ -52,30 +54,37 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
         await send(examples, userInput);
     };
 
-    const useModeOnExample = () => {
-        useMode(true);
-    };
-    const useModeOnRequest = () => {
-        useMode(false);
+    const useTheMode = (bol: boolean) => {
+        useMode(bol);
     };
 
     return (
         <div className=' flex flex-row basis-1/12 justify-between grow'>
-            <div className='flex flex-row gap-3 ml-28'>
+            <div className='flex flex-row gap-3 ml-10'>
                 {mode ? (
-                    <button
-                        type='button'
-                        className={`px-3 rounded ${buttonClassName}`}
-                        onClick={() => clickedAdd()}
-                        disabled={isLoading}
-                    >
-                        Add example
-                    </button>
+                    <>
+                        <button
+                            type='button'
+                            className={`px-3 rounded ${buttonClassName}`}
+                            onClick={loadDefaultExample}
+                            disabled={isLoading}
+                        >
+                            Load example
+                        </button>
+                        <button
+                            type='button'
+                            className={`px-3 rounded ${buttonClassName}`}
+                            onClick={() => clickedAdd()}
+                            disabled={isLoading}
+                        >
+                            Add example
+                        </button>
+                    </>
                 ) : (
                     <button
                         onClick={onClickHandler}
                         type='button'
-                        className={`px-3 rounded ${classNameForSend}`}
+                        className={`px-3 mr-[141px] rounded ${classNameForSend}`}
                         disabled={disabledSendRequest}
                     >
                         Send request
@@ -88,7 +97,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-yellow-100 hover:text-black'
                             type='button'
-                            onClick={useModeOnExample}
+                            onClick={() => useTheMode(true)}
                             disabled={isLoading}
                         >
                             Example
@@ -96,7 +105,7 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-blue-200 hover:text-black'
                             type='button'
-                            onClick={useModeOnRequest}
+                            onClick={() => useTheMode(false)}
                             disabled={isLoading}
                         >
                             Request
