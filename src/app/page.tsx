@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import OpenAI from 'openai';
 import Examples from './components/Examples';
@@ -23,10 +24,12 @@ async function gptQuery(input: OpenAI.Chat.Completions.ChatCompletionMessagePara
 }
 
 const Home = () => {
+    const [modeUp, changeModeUp] = useState(false);
+    console.log(modeUp);
     // react query request, error handlers and fetch trigger
     const { data, isError, isLoading, mutateAsync } = useMutation(
         ({ examples, lastPrompt }: { examples: ShotsTypes[]; lastPrompt: string }) =>
-            gptQuery(insertExamples(examples, lastPrompt)),
+            gptQuery(insertExamples(examples, lastPrompt, modeUp)),
     );
 
     // send request to gpt after button is pressed
@@ -46,13 +49,13 @@ const Home = () => {
         <div className='flex flex-col pt-3 h-screen'>
             <div className='mx-6 mb-3 flex flex-row basis-[2%]'>
                 <h1 className='text-3xl font-black place-self-center'>ModGen.js</h1>
-                <ToolBar isLoading={isLoading} send={send} />
+                <ToolBar isLoading={isLoading} send={send} changeModeUp={changeModeUp} modeUp={modeUp} />
             </div>
             <div className='flex flex-row text-base grow min-h-0 basis-[98%]'>
-                <Inputs data={data} isLoading={isLoading} />
+                <Inputs data={data} isLoading={isLoading} modeUp={modeUp} />
 
                 <Container className='w-5/12'>
-                    <Examples />
+                    <Examples modeUp={modeUp} />
                 </Container>
             </div>
         </div>

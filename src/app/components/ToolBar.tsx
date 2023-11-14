@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { ShotsTypes, userInputsArr } from '../../store/inputStore';
 
 interface toolBarInter {
     isLoading: boolean;
     send: (examples: ShotsTypes[], userInputs: string) => Promise<void>;
+    changeModeUp: Dispatch<SetStateAction<boolean>>;
+    modeUp: boolean;
 }
 
-export const ToolBar = ({ isLoading, send }: toolBarInter) => {
+export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter) => {
     const [
         updateUserInputArr,
         userInput,
@@ -33,9 +35,15 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
 
     const buttonClassName = isLoading ? ' text-gray-400' : ' hover:bg-slate-600';
 
-    const disabledSendRequest = !(examples.length >= 1 && userInput !== '' && !isLoading);
+    const disabledSendRequest = !(
+        (examples.length >= 1 && userInput !== '' && !isLoading) ||
+        (modeUp && userInput !== '')
+    );
     const classNameForSend = disabledSendRequest ? ' text-gray-400' : ' hover:bg-yellow-800';
     const classNameForButton = isLoading ? ' text-gray-400' : ' hover:bg-red-900';
+
+    console.log('disabled:', disabledSendRequest);
+    console.log('modeUp:', modeUp);
 
     const clickedAdd = () => {
         if (userInput.trim() !== '' && userResults.trim() !== '') {
@@ -98,7 +106,10 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-yellow-100 hover:text-black'
                             type='button'
-                            onClick={() => onModeClick(true)}
+                            onClick={() => {
+                                onModeClick(true);
+                                changeModeUp(false);
+                            }}
                             disabled={isLoading}
                         >
                             Example
@@ -106,10 +117,24 @@ export const ToolBar = ({ isLoading, send }: toolBarInter) => {
                         <button
                             className='px-3 rounded hover:bg-blue-200 hover:text-black'
                             type='button'
-                            onClick={() => onModeClick(false)}
+                            onClick={() => {
+                                onModeClick(false);
+                                changeModeUp(false);
+                            }}
                             disabled={isLoading}
                         >
                             Request
+                        </button>
+                        <button
+                            className='px-3 rounded hover:bg-pink-200 hover:text-black'
+                            type='button'
+                            onClick={() => {
+                                onModeClick(false);
+                                changeModeUp(true);
+                            }}
+                            disabled={isLoading}
+                        >
+                            Review
                         </button>
                     </div>
                 </div>
