@@ -25,7 +25,7 @@ async function gptQuery(input: OpenAI.Chat.Completions.ChatCompletionMessagePara
 
 const Home = () => {
     const [modeUp, changeModeUp] = useState(false);
-    console.log(modeUp);
+
     // react query request, error handlers and fetch trigger
     const { data, isError, isLoading, mutateAsync } = useMutation(
         ({ examples, lastPrompt }: { examples: ShotsTypes[]; lastPrompt: string }) =>

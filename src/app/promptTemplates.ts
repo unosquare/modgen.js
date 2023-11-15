@@ -34,6 +34,5 @@ export default function insertExamples(examples: ShotsTypes[], lastPrompt: strin
         }
     }
     msjs.push({ role: 'user', content: lastPrompt });
-    console.log(msjs);
     return msjs;
 }
