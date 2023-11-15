@@ -12,17 +12,20 @@ interface ResultTypes {
     updateUserResults: (input: string) => void;
     disabled: boolean;
     isLoading: boolean;
+    modeUp: boolean;
 }
 
 // results are GPT responses exemplified by the user
-export const Result = ({ data, userResults, updateUserResults, disabled, isLoading }: ResultTypes) => {
+export const Result = ({ data, userResults, updateUserResults, disabled, isLoading, modeUp }: ResultTypes) => {
     useEffect(() => {
         if (typeof data === 'string') {
             updateUserResults(data);
         }
     }, [data, updateUserResults]);
 
-    const textAreaClassName = isLoading ? 'animate-pulse' : '';
+    const textAreaClassName = isLoading ? 'animate-pulse ' : '';
+
+    const placeHolderText = modeUp ? 'Field deactivated, input code in model to review it' : 'Input a result...';
 
     return (
         <div className='flex flex-col w-[50%] h-full grow border border-gray-700'>
@@ -37,7 +40,7 @@ export const Result = ({ data, userResults, updateUserResults, disabled, isLoadi
                     preClassName='!break-all'
                     textareaClassName='!break-all'
                     disabled={disabled}
-                    placeholder='Input a result...'
+                    placeholder={placeHolderText}
                 />
             </div>
         </div>

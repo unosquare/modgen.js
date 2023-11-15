@@ -6,9 +6,10 @@ import { userInputsArr } from '../../store/inputStore';
 interface InputsType {
     data: string | undefined | null;
     isLoading: boolean;
+    modeUp: boolean;
 }
 
-const Inputs = ({ data, isLoading }: InputsType) => {
+const Inputs = ({ data, isLoading, modeUp }: InputsType) => {
     const [userInput, updateUserInput, userResults, updateUserResults] = userInputsArr((state) => [
         state.userInputs,
         state.updateUserInput,
@@ -23,8 +24,9 @@ const Inputs = ({ data, isLoading }: InputsType) => {
                 data={data}
                 userResults={userResults}
                 updateUserResults={updateUserResults}
-                disabled={isLoading}
+                disabled={isLoading || modeUp}
                 isLoading={isLoading}
+                modeUp={modeUp}
             />
         </Container>
     );
