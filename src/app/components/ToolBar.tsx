@@ -42,9 +42,6 @@ export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter)
     const classNameForSend = disabledSendRequest ? ' text-gray-400' : ' hover:bg-yellow-800';
     const classNameForButton = isLoading ? ' text-gray-400' : ' hover:bg-red-900';
 
-    console.log('disabled:', disabledSendRequest);
-    console.log('modeUp:', modeUp);
-
     const clickedAdd = () => {
         if (userInput.trim() !== '' && userResults.trim() !== '') {
             updateUserInputArr({ input: userInput, result: userResults });
@@ -104,7 +101,9 @@ export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter)
                     <h4>Input mode</h4>
                     <div className='flex flex-row gap-4'>
                         <button
-                            className='px-3 rounded hover:bg-yellow-100 hover:text-black'
+                            className={`px-3 rounded ${
+                                mode && !modeUp ? ' bg-yellow-200 text-black ' : ''
+                            } hover:bg-yellow-100 hover:text-black`}
                             type='button'
                             onClick={() => {
                                 onModeClick(true);
@@ -115,7 +114,9 @@ export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter)
                             Example
                         </button>
                         <button
-                            className='px-3 rounded hover:bg-blue-200 hover:text-black'
+                            className={`px-3 rounded ${
+                                !mode && !modeUp ? ' bg-blue-200 text-black ' : ''
+                            } hover:bg-blue-100 hover:text-black`}
                             type='button'
                             onClick={() => {
                                 onModeClick(false);
@@ -126,7 +127,9 @@ export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter)
                             Request
                         </button>
                         <button
-                            className='px-3 rounded hover:bg-pink-200 hover:text-black'
+                            className={`px-3 rounded ${
+                                !mode && modeUp ? ' bg-pink-200 text-black ' : ''
+                            } hover:bg-pink-100 hover:text-black`}
                             type='button'
                             onClick={() => {
                                 onModeClick(false);
