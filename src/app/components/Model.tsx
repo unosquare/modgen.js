@@ -17,19 +17,21 @@ interface ModelTypes {
 export const Model = ({ userInput, updateUserInput, disabled }: ModelTypes) => {
     const [copyText, onCopyText] = useState('Copy to clipboard');
 
+    const onCopyClick = () => {
+        navigator.clipboard.writeText(userInput);
+        onCopyText('Copied!');
+        setTimeout(() => {
+            onCopyText('Copy to clipboard');
+        }, 2000);
+    };
+
     return (
         <div className='flex flex-col w-[50%] h-full grow border border-gray-700'>
             <div className='flex flex-row justify-between'>
                 <h1 className='basis-[2%] ml-2'>Model</h1>
                 <button
                     className={`mr-4 px-2 py-0 text-xs ${copyText === 'Copied!' ? ' text-yellow-300' : ''}`}
-                    onClick={() => {
-                        navigator.clipboard.writeText(userInput);
-                        onCopyText('Copied!');
-                        setTimeout(() => {
-                            onCopyText('Copy to clipboard');
-                        }, 2000);
-                    }}
+                    onClick={onCopyClick}
                     disabled={copyText === 'Copied!'}
                 >
                     {copyText}
