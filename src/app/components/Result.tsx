@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-typescript';
@@ -17,6 +18,8 @@ interface ResultTypes {
 
 // results are GPT responses exemplified by the user
 export const Result = ({ data, userResults, updateUserResults, disabled, isLoading, modeUp }: ResultTypes) => {
+    const [copyText, onCopyText] = useState('Copy to clipboard');
+
     useEffect(() => {
         if (typeof data === 'string') {
             updateUserResults(data);
@@ -27,9 +30,26 @@ export const Result = ({ data, userResults, updateUserResults, disabled, isLoadi
 
     const placeHolderText = modeUp ? 'Field deactivated, input code in model to review it' : 'Input a result...';
 
+    const onCopyClick = () => {
+        navigator.clipboard.writeText(userResults);
+        onCopyText('Copied!');
+        setTimeout(() => {
+            onCopyText('Copy to clipboard');
+        }, 2000);
+    };
+
     return (
         <div className='flex flex-col w-[50%] h-full grow border border-gray-700'>
-            <h1 className='basis-[2%] ml-2'>Result</h1>
+            <div className='flex flex-row justify-between'>
+                <h1 className='basis-[2%] ml-2'>Result</h1>
+                <button
+                    className={`mr-4 px-2 py-0 text-xs ${copyText === 'Copied!' ? ' text-yellow-300' : ''}`}
+                    onClick={onCopyClick}
+                    disabled={copyText === 'Copied!'}
+                >
+                    {copyText}
+                </button>
+            </div>
             <div className='basis-[98%] overflow-auto font-mono'>
                 <Editor
                     value={userResults}
