@@ -15,9 +15,9 @@ ModGen.js it's a web tool for code generation. It uses GPT to process the user's
 The goal is to first register a couple of examples (examples are composed of 1 input and 1 result) and then, send the code snippet you want GPT to grab data from. Resulting on the return of a similar response to the results you registered, but with the data, structures and patterns of the last input.
 ![demostracionMoGen2](https://github.com/unosquare/modgen.js/assets/99301366/1aaf67be-0b02-4e69-90df-edbcbe68ebdd)
 
-### Usage
+## Usage
 
-## Mode: Example and request
+### Mode: Example and request
 As described in the past section, you must first write/copy and paste/obtain at least a couple of examples similar to the code you are trying to generate. As the name implies, you must be in example mode to input your examples. Examples are composed of; 1) a model: this input is the "first" part of your examples, is usually the code you are trying to get the data from, example:
 
 ```const numbers = [1,2,3];```
@@ -44,13 +44,13 @@ const fruitsTwo = {
 };
 ```
 
-## Mode: Review
+### Mode: Review
 New feature! This feature aims to focus the model to review code and improve it.
 This mode does not need examples or requests, the usage it's the same as if you were in ChatGPT: You have an area to input your text/code, this is the model textarea. The Result textarea is locked as you dont need it to make a review request. This area is used just to output the returned code from GPT, which depends what type of code you have inputted. 
 If you code is faulty or wrong, GPT will try to improve and make it functional by chaging or removing lines, if its good and works and you are just trying to optimize it or just make it better GPT will do this too, by making changes to your already working code. Most of the times for every change it made it will write a code comment in the line above where the change was made, explaning with a few words what change was made and sometimes what was the reason for the change.
 This mode has a different prompt which tries to instruct the model to review the code and make the appropiate changes, it does not need examples and the only requirement is the code you are trying to fix or improve. 
 
-### Limitations
+## Limitations
 While the purpose of this project is to create a tool that can return correct code 100% of the time, unfortunatly it is completly possible that GPT returns an error message or incorrect code, sometimes this is because not enough examples were provided for GPT to completely adapt or "understand" the code you provided. Right now you must provide at least 2 examples before sending a request. We set it this way so it's not that restricting or difficult to use the tool, and for simple code snippets it is better this way, but it is recommended that if you want to generate some more complex code you provide more examples, this way the model will have more data to base its response and shape a better one.
 
 For the review mode it's the same: sometimes the code comments will not appear and changes will be made to your code without an explanation. Right now the code review mode outputs functional code but it may be different from the one you expect, the structures are sometimes outputed in a strange way, example: if you have a variable that its an index, GPT may put a number in the place of the key variable for cyclable elements.
