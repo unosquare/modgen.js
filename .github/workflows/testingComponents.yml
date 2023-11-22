@@ -19,4 +19,4 @@ jobs:
       - name: 🤠 npm install
         run: npm ci
       - name: ✔ Ruuun tests
-        run: npm run test
+        run: npm run proof
