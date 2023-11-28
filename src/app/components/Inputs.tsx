@@ -1,7 +1,8 @@
 import Model from './Model';
 import Result from './Result';
 import Container from './Container';
-import { userInputsArr } from '../../store/inputStore';
+// import { userInputsArr } from '../../store/inputStore';
+import { useInputArrStore } from '../../store/mock-inputStore';
 
 interface InputsType {
     data: string | undefined | null;
@@ -10,7 +11,7 @@ interface InputsType {
 }
 
 const Inputs = ({ data, isLoading, modeUp }: InputsType) => {
-    const [userInput, updateUserInput, userResults, updateUserResults] = userInputsArr((state) => [
+    const [userInput, updateUserInput, userResults, updateUserResults] = useInputArrStore((state) => [
         state.userInputs,
         state.updateUserInput,
         state.userResults,

@@ -1,9 +1,10 @@
-import { userInputsArr } from '@/store/inputStore';
+// import { userInputsArr } from '@/store/inputStore';
+import { useInputArrStore } from '@/store/mock-inputStore';
 import Shots from './Shots';
 
 // examples are built with one user input and result
 const Examples = ({ modeUp }: { modeUp: boolean }) => {
-    const [examples] = userInputsArr((state) => [state.examples]);
+    const [examples] = useInputArrStore((state) => [state.examples]);
 
     const examplesClassName = modeUp ? 'opacity-50' : '';
 

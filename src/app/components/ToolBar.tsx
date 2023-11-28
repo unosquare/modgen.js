@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { ShotsTypes, userInputsArr } from '../../store/inputStore';
+// import { ShotsTypes, userInputsArr } from '../../store/inputStore';
+import { ShotsTypes } from '../../store/inputStore';
+import { useInputArrStore } from '@/store/mock-inputStore';
 
 interface toolBarInter {
     isLoading: boolean;
@@ -20,7 +22,7 @@ export const ToolBar = ({ isLoading, send, changeModeUp, modeUp }: toolBarInter)
         examples,
         deleteUserInputArr,
         loadDefaultExample,
-    ] = userInputsArr((state) => [
+    ] = useInputArrStore((state) => [
         state.updateUserInputArr,
         state.userInputs,
         state.updateUserInput,
